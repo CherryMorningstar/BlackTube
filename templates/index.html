@@ -1,0 +1,28 @@
+<!-- Django Templates Inheriting -->
+{% extends "base.html" %}
+
+<!-- Title -->
+{% block title %} Media {% endblock title %}
+
+<!-- Body -->
+{% block body %}
+
+<!--BlckTube-->
+<div class="d-flex align-items-center justify-content-center m-1 bg-light" style="height: 100vh; border-radius: 5px;">
+        <div class="bg-light" style="height: 400px; width: 300px; border-radius: 5px;">
+          <img src="../static/blacktube.png" class="rounded mx-auto d-block" height="80px" width="80px;">
+          <form class="row g-3 needs-validation" style="text-align: center" action="/media" method="get" accept-charset="utf-8" novalidate>
+            <div class="container">
+              <label for="validationCustom03" class="form-label mt-3" style="font-weight: bolder; font-family: monospace;">Past Your Link</label>
+              <input type="text" class="form-control " id="validationCustom03" name="url" placeholder="https://youtube/example" required>
+              <div class="invalid-feedback">
+                Please provide a valid url.
+              </div>
+            </div>
+            <button class="btn btn-secondary my-2" style="font-weight: bolder;"  type="submit">Search</button>
+          </form>
+          
+        </div>
+    </div>
+
+{% endblock body %}

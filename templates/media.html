@@ -1,0 +1,57 @@
+<!-- Django Templates Inheriting -->
+{% extends "base.html" %}
+
+<!-- Title -->
+{% block title %} Downlaod {% endblock title %}
+
+<!-- Body -->
+{% block body %}
+  <!-- Youtube Details -->
+  <div class="d-flex justify-content-center mt-1 bg-light" style="height: 100vh; border-radius: 5px;">
+      <div class="card mt-1 " style="width: 90vw; height: 97vh;">
+        <iframe height="100%" src="https://www.youtube.com/embed/{{embedUrl}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+          Video is not supported by your browser
+        </iframe>
+        <div class="card-body text-center">
+          <h3>{{youtubeObj.title}}</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Views :</strong> {{youtubeObj.views}}</li>
+          <li class="list-group-item" ><strong>Channel :</strong> {{youtubeObj.author}}</li>
+          <li class="list-group-item"><strong>Publish Date : </strong> {{youtubeObj.publish_date}}</li>
+          <li class="list-group-item"></li>
+          <li class="list-group-item"><h3 style="text-align: center">Download</h3></li>
+        </ul>
+        
+        <!--Downloads-->
+        <div class="card-body">
+          <form class="row g-2" action="/download" method="POST" accept-charset="utf-8">
+          {% csrf_token %}
+          {% if youtubeObj.streams %}
+            {% if itags %}
+              {% for key in itags.keys %}
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="radioBtn" value="{{key}}" id="flexRadioDefault1">
+                  <label class="form-check-label" for="flexRadioDefault1">{{key}}</label>
+                </div>
+              {% endfor %}
+            {% else %}
+              <h4 class="text-danger text-center">Sorry !</h4>
+              <h6 class="text-danger text-center">only audio is available</h6><hr />
+            {% endif %}
+            <div class="form-check form-switch my-2">
+              <input class="form-check-input" type="checkbox" name="checkBox">
+              <label class="form-check-label" for="flexSwitchCheckDefault"><strong>Download Audio</strong></label>
+            </div>
+          <button type="submit" class="btn btn-primary" style="font-weight: bolder;">START</button>
+        </form>
+            {% else %}
+            <h4 class="text-danger text-center">Sorry !</h4>
+            <h6 class="text-danger text-center">no data available</h6>
+            {% endif %}
+      </div>
+      
+      </div>
+  </div>
+  
+{% endblock body %}
